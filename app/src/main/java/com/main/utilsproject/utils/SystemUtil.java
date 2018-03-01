@@ -65,9 +65,6 @@ public class SystemUtil {
         return AAID;
     }
 
-
-    private static String MCC;
-
     /**
      * 获取MCC，移动国家码，三位
      *
@@ -75,22 +72,20 @@ public class SystemUtil {
      * @return MCC
      */
     public static String getMCC(Context context) {
-        if (TextUtils.isEmpty(MCC)) {
-            try {
-                TelephonyManager telManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-                    String imsi = telManager.getSubscriberId();
-                    MCC = imsi.substring(0, 3);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        String mcc = "";
+
+        try {
+            TelephonyManager telManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                String imsi = telManager.getSubscriberId();
+                mcc = imsi.substring(0, 3);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return MCC;
+        return mcc;
     }
-
-    private static String MNC;
 
     /**
      * 获取MNC，移动网络码，两位
@@ -99,19 +94,19 @@ public class SystemUtil {
      * @return MNC
      */
     public static String getMNC(Context context) {
-        if (TextUtils.isEmpty(MNC)) {
-            try {
-                TelephonyManager telManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-                    String imsi = telManager.getSubscriberId();
-                    MNC = imsi.substring(3, 5);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        String mnc = "";
+
+        try {
+            TelephonyManager telManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                String imsi = telManager.getSubscriberId();
+                mnc = imsi.substring(3, 5);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return MNC;
+        return mnc;
     }
 
     /**
